@@ -1,0 +1,14 @@
+networks:
+  skola-net:
+    driver: bridge
+
+services:
+  todo:
+    container_name: adibdocr-todo-task
+    image: adibdocr/item-todo:latest
+    ports:
+      - "7000:5000"
+    volumes:
+      - ./todos.json:/app/todos.json
+    networks:
+      - skola-net
