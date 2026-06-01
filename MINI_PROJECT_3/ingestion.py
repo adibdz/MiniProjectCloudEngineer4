@@ -24,9 +24,9 @@ def save_to_influxdb(data):
     'Point' is how InfluxDB structures data — measurement + tags + fields.
     """
     point = (
-        Point("energy_telemetry")           # measurement name (like a table name)
-        .tag("device_id", data["device_id"]) # tag = indexed label (for filtering)
-        .field("voltage", data["voltage"])   # field = actual numeric value
+        Point("energy_telemetry")           
+        .tag("device_id", data["device_id"])
+        .field("voltage", data["voltage"])   
         .field("current", data["current"])
         .field("power", data["power"])
         .field("energy", data["energy"])
