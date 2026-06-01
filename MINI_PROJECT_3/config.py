@@ -1,5 +1,3 @@
-# config.py — put all your credentials here
-
 # HiveMQ settings
 MQTT_BROKER = "HIVEMQ URL"
 MQTT_PORT = 8883
