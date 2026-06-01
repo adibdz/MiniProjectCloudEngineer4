@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wibe-studio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wibe-studio
+  template:
+    metadata:
+      labels:
+        app: wibe-studio
+    spec:
+      imagePullSecrets:
+        - name: gitlab-registry-secret
+      nodeSelector:
+        kubernetes.io/hostname: digitalskola
+      containers:
+        - name: wibe-studio
+          image: gitlab.homelab:5050/adib/wibe-studio:v3ClusterIP
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wibe-studio
+spec:
+  selector:
+    app: wibe-studio
+  ports:
+    - port: 80 # The port the service listens on inside the cluster
+      targetPort: 80 # Directs traffic straight to Nginx on port 80
+  type: ClusterIP
+  externalIPs:
+    - 10.0.2.2
+

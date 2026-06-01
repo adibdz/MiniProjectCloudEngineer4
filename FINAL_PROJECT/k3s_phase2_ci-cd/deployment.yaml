@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wibe-studio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wibe-studio
+  template:
+    metadata:
+      labels:
+        app: wibe-studio
+    spec:
+      imagePullSecrets:
+        - name: gitlab-registry-secret
+      nodeSelector:
+        kubernetes.io/hostname: digitalskola   # keep — pins to vm1
+      containers:
+        - name: wibe-studio
+          image: IMAGE_TAG                     # pipeline replaces this
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
